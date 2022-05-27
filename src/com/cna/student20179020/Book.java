@@ -66,13 +66,13 @@ public class Book {
         return authorList;
     }
 
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
+    }
+
     public static Book buildBook(ResultSet set) throws SQLException {
         Book book = new Book(set.getString(1),set.getString(2),set.getInt(3),set.getString(4));
         return book;
-    }
-
-    public void setAuthorList(List<Author> authorList) {
-        this.authorList = authorList;
     }
 
     public void printBookInfo(PrintStream printStream) {
@@ -81,9 +81,9 @@ public class Book {
         authorList.stream().forEach((k) -> {
             System.out.printf("\tFIRST NAME: %-15s LAST NAME: %-20s", k.getFirstName(),k.getLastName());
             });
+    }
 //        for (Author a : getAuthorList()) {
 //            printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
 //        }
 
-    }
 }

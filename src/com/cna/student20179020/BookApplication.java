@@ -17,8 +17,8 @@ public class BookApplication {
         var libraryManager = new LibraryManager(db);
 
 
-        boolean keepPlaying = true;
-        while (keepPlaying) {
+        boolean keepUsing = true;
+        while (keepUsing) {
             Scanner input = new Scanner(System.in);
             System.out.println();
             System.out.println("Please choose a number for the associated options:");
@@ -51,7 +51,7 @@ public class BookApplication {
                     break;
                 case "5":
                     System.out.println("Thank you for using the database. Goodbye");
-                    keepPlaying = false;
+                    keepUsing = false;
                     break;
 
 
