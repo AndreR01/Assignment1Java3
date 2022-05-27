@@ -15,8 +15,8 @@ public class BookApplication {
     public static void main(String args[]) {
 
         Scanner input = new Scanner(System.in);
-        BookDatabaseManager db = new BookDatabaseManager();
-        LibraryManager libraryManager = new LibraryManager(db);
+        BookDatabaseManager databaseManager = new BookDatabaseManager();
+        LibraryManager libraryManager = new LibraryManager(databaseManager);
 
         boolean keepUsing = true;
         while (keepUsing) {
@@ -50,8 +50,8 @@ public class BookApplication {
                     int edition = input.nextInt();
                     System.out.println("Please enter the copyright of the book: ");
                     String copyright = input.nextLine();
-                    db.AddBook(new Book(isbn,title, edition, copyright));
-                    //db.AddAuthorToBook(isbn, authorid);
+                    databaseManager.AddBook(new Book(isbn,title, edition, copyright));
+                    //databaseManager.AddAuthorToBook(isbn, authorid);
                     break;
                 case "4":
                     System.out.println("Please enter the author's first name:");
@@ -60,7 +60,7 @@ public class BookApplication {
                     String lastName = input.nextLine();
                     //TODO is it ok to pass 0 to the constructor. authorID is autoincrement
                     Author newAuthor = new Author(0, firstName, lastName);
-                    db.AddAuthor(newAuthor);
+                    databaseManager.AddAuthor(newAuthor);
                     libraryManager.reloadFromDataSource();
                     break;
                 case "5":

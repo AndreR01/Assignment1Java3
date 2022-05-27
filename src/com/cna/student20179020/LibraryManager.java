@@ -7,18 +7,18 @@ public class LibraryManager {
     private List<Author> authorList;
     private List<Book> bookList;
 
-    private BookDatabaseManager db;
+    private BookDatabaseManager databaseManager;
 
     public LibraryManager (BookDatabaseManager databaseManager){
-        db = databaseManager;
+        this.databaseManager = databaseManager;
         reloadFromDataSource();
     }
 
     public void reloadFromDataSource() {
 
-        authorList = db.getAllAuthors();
-        bookList = db.getAllBooks();
-        List<AuthorISBN> authorISBN = db.getAllISBN();
+        authorList = databaseManager.getAllAuthors();
+        bookList = databaseManager.getAllBooks();
+        List<AuthorISBN> authorISBN = databaseManager.getAllISBN();
 
         for (Author author : authorList) {
             List<String> bookISBNs = new LinkedList<>();
