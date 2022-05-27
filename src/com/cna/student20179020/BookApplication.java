@@ -58,6 +58,7 @@ public class BookApplication {
                     String firstName = input.nextLine();
                     System.out.println("Please enter the author's last name");
                     String lastName = input.nextLine();
+                    //TODO is it ok to pass 0 to the constructor. authorID is autoincrement
                     Author newAuthor = new Author(0, firstName, lastName);
                     db.AddAuthor(newAuthor);
                     libraryManager.reloadFromDataSource();

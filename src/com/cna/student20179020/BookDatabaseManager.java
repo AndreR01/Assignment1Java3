@@ -43,7 +43,7 @@ public class BookDatabaseManager {
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
             preparedStatement.setString(1, author.getFirstName());
             preparedStatement.setString(2, author.getLastName());
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeQuery();
         } catch (Exception e) {
             System.out.println("AddAuthor: " + e);
         }
@@ -59,7 +59,7 @@ public class BookDatabaseManager {
             preparedStatement.setString(2, book.getTitle());
             preparedStatement.setInt(3, book.getEditionNumber());
             preparedStatement.setString(4, book.getCopyright());
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeQuery();
         } catch (Exception e) {
             System.out.println("AddAuthor: " + e);
         }
