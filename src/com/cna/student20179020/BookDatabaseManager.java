@@ -15,25 +15,19 @@ public class BookDatabaseManager {
     private static final String USER = "root";
     private static final String PASS = "A@123456";
 
+//TODO Use a prepared statement to handle the new book and new author creation.
+//    public void AddAuthor(String firstName, String lastName) {
+//        try {
+//            ResultSet resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
+//        } catch (Exception e) {
+//            System.out.println("AddAuthor: " + e);
+//        }
+//    }
 
-    public void AddAuthor(String firstName, String lastName) {
-        try {
-            ResultSet resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
-        } catch (Exception e) {
-            System.out.println("AddAuthor: " + e);
-        }
-    }
+//TODO Use a prepared statement to handle the new book and new author creation.
+//    public void AddBook(String isbn, String title, int edition, String copyright) {
+//    }
 
-    public void AddBook(String isbn, String title, int edition, String copyright) {
-    }
-
-    public void AddAuthorToBook(int authorId, String isbn) {
-        try {
-            ResultSet resp = getData("insert into authorISBN (`authorID`,`isbn`) values (`" + authorId + "`, `" + isbn + "`);");
-        } catch (Exception e) {
-            System.out.println("AddAuthorISBN: " + e);
-        }
-    }
 
     private ResultSet getData(String query) throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
@@ -104,7 +98,9 @@ public class BookDatabaseManager {
 //    private void loadDatabase(){}
 //    private void loadBooks(){}
 //    private void loadAuthors(){}
-    //    public List<Author> GetAuthorsForBook(String isbn){
+//
+
+//    public List<Author> GetAuthorsForBook(String isbn){
 //        var query = "SELECT authors.authorID, authors.firstName, authors.lastName from authorisbn JOIN authors on authorisbn.authorID = authors.authorID WHERE authorisbn.isbn = "+ isbn;
 //        List<Author> authors = new LinkedList<Author>();
 //        try {
@@ -119,6 +115,8 @@ public class BookDatabaseManager {
 //        return authors;
 //    }
 //
+
+
 //    public List<Book> GetBooksForAuthor(int authorId){
 //        String query = "SELECT titles.isbn, titles.title, titles.editionNumber, titles.copyright FROM authorisbn JOIN titles ON authorisbn.isbn = titles.isbn WHERE authorisbn.authorID = " + authorId;
 //        List<Book> books = new LinkedList<Book>();
