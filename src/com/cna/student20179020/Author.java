@@ -64,7 +64,10 @@ public class Author {
     }
 
     public void printAuthorsInfo(PrintStream printStream) {
-        printStream.printf("\nAuthor ID: %d \t\t First Name: %s \t\t Last Name: %s",
+        printStream.printf("\nAUTHOR ID: %d \t\t FIRST NAME: %-10s \t\t LAST NAME: %-10s",
                 this.getAuthorID(), this.getFirstName(), this.getLastName());
+        bookList.stream().forEach((k) -> {
+            System.out.printf("\tISBN: %-12s TITLE: %-60s EDITION: %-5s", k.getIsbn(),k.getTitle(),k.getEditionNumber());
+        });
     }
 }

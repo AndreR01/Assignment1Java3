@@ -33,11 +33,13 @@ public class BookApplication {
                     for (Book book : libraryManager.getBookList()) {
                         book.printBookInfo(System.out);
                     }
+                    System.out.println();
                     break;
                 case "2":
                     for (Author author : libraryManager.getAuthorList()) {
                         author.printAuthorsInfo(System.out);
                     }
+                    System.out.println();
                     break;
                 case "3":
 //                    db.AddBook(isbn);

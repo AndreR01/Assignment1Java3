@@ -15,16 +15,16 @@ public class BookDatabaseManager {
     private static final String USER = "root";
     private static final String PASS = "A@123456";
 
-//TODO Use a prepared statement to handle the new book and new author creation.
-//    public void AddAuthor(String firstName, String lastName) {
-//        try {
-//            ResultSet resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
-//        } catch (Exception e) {
-//            System.out.println("AddAuthor: " + e);
-//        }
-//    }
+//TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
+    public void AddAuthor(String firstName, String lastName) {
+        try {
+            ResultSet resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
+        } catch (Exception e) {
+            System.out.println("AddAuthor: " + e);
+        }
+    }
 
-//TODO Use a prepared statement to handle the new book and new author creation.
+//TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
 //    public void AddBook(String isbn, String title, int edition, String copyright) {
 //    }
 

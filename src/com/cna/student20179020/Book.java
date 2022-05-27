@@ -76,10 +76,14 @@ public class Book {
     }
 
     public void printBookInfo(PrintStream printStream) {
-        printStream.printf("\nISBN: %s \t Title: %-80s \t Edition: %d \t Copyright: %s",
+        printStream.printf("\nISBN: %s \t TITLE: %-60s \t EDITION: %d \t COPYRIGHT: %s",
                 getIsbn(), getTitle(), getEditionNumber(), getCopyright());
-        for (Author a : getAuthorList()) {
-            printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
-        }
+        authorList.stream().forEach((k) -> {
+            System.out.printf("\tFIRST NAME: %-15s LAST NAME: %-20s", k.getFirstName(),k.getLastName());
+            });
+//        for (Author a : getAuthorList()) {
+//            printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
+//        }
+
     }
 }
