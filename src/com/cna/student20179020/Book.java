@@ -1,5 +1,6 @@
 package com.cna.student20179020;
 
+import java.io.PrintStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -74,5 +75,11 @@ public class Book {
         this.authorList = authorList;
     }
 
-
+    public void printBookInfo(PrintStream printStream) {
+//        printStream.printf("\nISBN: %s \t\t Title: %-80s \t\t Edition: %d \t\t Copyright: %s",
+//                getIsbn(), getTitle(), getEditionNumber(), getCopyright());
+        for (Author a : getAuthorList()) {
+            printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
+        }
+    }
 }
