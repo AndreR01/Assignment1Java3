@@ -1,6 +1,5 @@
 package com.cna.student20179020;
 
-import java.sql.*;
 import java.util.Scanner;
 
 public class BookApplication {
@@ -24,19 +23,21 @@ public class BookApplication {
             String choice = input.nextLine();
             switch (choice) {
                 case "1":
-                    for (Book book : libraryManager.getBooklist()) {
+                    for (Book book : libraryManager.getBookList()) {
                         book.printBookInfo(System.out);
                     }
                     break;
                 case "2":
-                    //rs = stmt.executeQuery("select * from authors");
+                    for (Author author : libraryManager.getAuthorList()) {
+                        author.printAuthorsInfo(System.out);
+                    }
                     break;
                 case "3":
 //                    db.AddBook(isbn);
 //                    db.AddAuthorToBook(isbn, authorid);
                     break;
                 case "4":
-                    db.AddAuthor("Rob","B");
+                    db.AddAuthor("Andre", "R");
                     libraryManager.reloadFromDataSource();
                     break;
                 case "5":
@@ -47,6 +48,5 @@ public class BookApplication {
 
             }
         }
-
     }
 }

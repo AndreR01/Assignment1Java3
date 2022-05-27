@@ -1,5 +1,6 @@
 package com.cna.student20179020;
 
+import java.io.PrintStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -17,12 +18,12 @@ public class Author {
         this.bookList = new LinkedList<>();
     }
 
-    public Author(int authorID, String firstName, String lastName, List<Book> bookList) {
-        this.authorID = authorID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.bookList = new LinkedList<>();
-    }
+//    public Author(int authorID, String firstName, String lastName, List<Book> bookList) {
+//        this.authorID = authorID;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.bookList = new LinkedList<>();
+//    }
 
 
     public int getAuthorID() {
@@ -62,4 +63,8 @@ public class Author {
         return author;
     }
 
+    public void printAuthorsInfo(PrintStream printStream) {
+        printStream.printf("\nAuthor ID: %d \t\t First Name: %s \t\t Last Name: %s",
+                this.getAuthorID(), this.getFirstName(), this.getLastName());
+    }
 }

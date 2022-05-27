@@ -5,27 +5,29 @@ import java.util.List;
 
 public class LibraryManager {
     private List<Author> authorList;
-    private List<Book> booklist;
+    private List<Book> bookList;
 
     private BookDatabaseManager db;
+
     public LibraryManager (BookDatabaseManager databaseManager){
         db = databaseManager;
         reloadFromDataSource();
     }
+
     public void reloadFromDataSource() {
 
         authorList = db.getAllAuthors();
-        booklist = db.getAllBooks();
-        var aISBN = db.getAllISBN();
+        bookList = db.getAllBooks();
+        List<AuthorISBN> authorISBN = db.getAllISBN();
 
         for (Author author : authorList) {
             var bookISBNs = new LinkedList<String>();
-            for (AuthorISBN ai : aISBN) {
+            for (AuthorISBN ai : authorISBN) {
                 if(ai.authorID == author.authorID){
                     bookISBNs.add(ai.isbn);
                 }
             }
-            for (Book b : booklist){
+            for (Book b : bookList){
             if(bookISBNs.contains(b.isbn)){
                 author.getBookList().add(b);
                 b.getAuthorList().add(author);
@@ -38,13 +40,12 @@ public class LibraryManager {
         return authorList;
     }
 
-    public List<Book> getBooklist(){
-        return booklist;
+    public List<Book> getBookList(){
+        return bookList;
     }
 
     //TODO add a book to the list and to the underlying Database (and it's authors)
     //TODO add an author to the list and to the underlying Database (and it's authors (books??)
-
 }
 
 

@@ -21,13 +21,13 @@ public class Book {
         this.authorList = new LinkedList<>();
     }
 
-    public Book(String isbn, String title, int editionNumber, String copyright, List<Author> authorList) {
-        this.isbn = isbn;
-        this.title = title;
-        this.editionNumber = editionNumber;
-        this.copyright = copyright;
-        this.authorList = new LinkedList<>();
-    }
+//    public Book(String isbn, String title, int editionNumber, String copyright, List<Author> authorList) {
+//        this.isbn = isbn;
+//        this.title = title;
+//        this.editionNumber = editionNumber;
+//        this.copyright = copyright;
+//        this.authorList = new LinkedList<>();
+//    }
 
 
     public String getIsbn() {
@@ -76,8 +76,8 @@ public class Book {
     }
 
     public void printBookInfo(PrintStream printStream) {
-//        printStream.printf("\nISBN: %s \t\t Title: %-80s \t\t Edition: %d \t\t Copyright: %s",
-//                getIsbn(), getTitle(), getEditionNumber(), getCopyright());
+        printStream.printf("\nISBN: %s \t Title: %-80s \t Edition: %d \t Copyright: %s",
+                getIsbn(), getTitle(), getEditionNumber(), getCopyright());
         for (Author a : getAuthorList()) {
             printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
         }

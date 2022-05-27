@@ -16,23 +16,25 @@ public class BookDatabaseManager {
     private static final String PASS = "A@123456";
 
 
-    public void AddAuthor(String firstName, String lastName){
+    public void AddAuthor(String firstName, String lastName) {
         try {
-            var resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
+            ResultSet resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
         } catch (Exception e) {
             System.out.println("AddAuthor: " + e);
         }
     }
-    public void AddBook(String isbn, String title, int edition, String copyright){
 
+    public void AddBook(String isbn, String title, int edition, String copyright) {
     }
-    public void AddAuthorToBook(int authorId, String isbn){
+
+    public void AddAuthorToBook(int authorId, String isbn) {
         try {
-            var resp = getData("insert into authorISBN (`authorID`,`isbn`) values (`" + authorId + "`, `" + isbn + "`);");
+            ResultSet resp = getData("insert into authorISBN (`authorID`,`isbn`) values (`" + authorId + "`, `" + isbn + "`);");
         } catch (Exception e) {
             System.out.println("AddAuthorISBN: " + e);
         }
     }
+
     private ResultSet getData(String query) throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
         Connection conn = DriverManager.getConnection(DATABASE_URL, USER, PASS);
@@ -41,7 +43,68 @@ public class BookDatabaseManager {
         return rs;
     }
 
-//    public List<Author> GetAuthorsForBook(String isbn){
+    public List<Book> getAllBooks() {
+        List<Book> books = new LinkedList<Book>();
+        try {
+            ResultSet data = getData("Select * from titles");
+            while (data.next()) {
+                Book book = Book.buildBook(data);
+                //book.setAuthorList(GetAuthorsForBook(book.isbn));
+                books.add(book);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return books;
+    }
+
+    public List<Author> getAllAuthors() {
+        List<Author> authors = new LinkedList<Author>();
+        try {
+            ResultSet data = getData("Select * from authors");
+            while (data.next()) {
+                Author author = Author.buildAuthor(data);
+                //author.setBookList(GetBooksForAuthor(author.authorID));
+                authors.add(author);
+            }
+        } catch (Exception e) {
+            System.out.println("Author: " + e);
+        }
+        return authors;
+    }
+
+    public List<AuthorISBN> getAllISBN() {
+        List<AuthorISBN> authorISBN = new LinkedList<AuthorISBN>();
+        try {
+            ResultSet data = getData("Select * from authorisbn");
+            while (data.next()) {
+
+                //author.setBookList(GetBooksForAuthor(author.authorID));
+                authorISBN.add(new AuthorISBN(data.getInt(1), data.getString(2)));
+            }
+        } catch (Exception e) {
+            System.out.println("ISBN: " + e);
+        }
+        return authorISBN;
+    }
+}
+
+
+//TODO old code
+//    private List<Book> bookList;
+//    private List<Author> authorList;
+//    public BookDatabaseManager(){}
+//    public static Book getBookByISBN
+//    public List<Book> getBookList() {
+//        return bookList;
+//    }
+//    public List<Author> getAuthorList() {
+//        return authorList;
+//    }
+//    private void loadDatabase(){}
+//    private void loadBooks(){}
+//    private void loadAuthors(){}
+    //    public List<Author> GetAuthorsForBook(String isbn){
 //        var query = "SELECT authors.authorID, authors.firstName, authors.lastName from authorisbn JOIN authors on authorisbn.authorID = authors.authorID WHERE authorisbn.isbn = "+ isbn;
 //        List<Author> authors = new LinkedList<Author>();
 //        try {
@@ -69,62 +132,3 @@ public class BookDatabaseManager {
 //        }
 //        return books;
 //    }
-    public List<Book> getAllBooks() {
-        List<Book> books = new LinkedList<Book>();
-        try {
-            ResultSet data = getData("Select * from titles");
-            while (data.next()){
-                Book book = Book.buildBook(data);
-                //book.setAuthorList(GetAuthorsForBook(book.isbn));
-                books.add(book);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return books;
-    }
-
-    public List<Author> getAllAuthors(){
-        List<Author> authors = new LinkedList<Author>();
-        try {
-            ResultSet data = getData("Select * from authors");
-            while (data.next()){
-                Author author = Author.buildAuthor(data);
-                //author.setBookList(GetBooksForAuthor(author.authorID));
-                authors.add(author);
-            }
-        } catch (Exception e) {
-            System.out.println("Author: " + e);
-        }
-        return authors;
-    }
-
-    public List<AuthorISBN> getAllISBN(){
-        var aISBN = new LinkedList<AuthorISBN>();
-        try {
-            ResultSet data = getData("Select * from authors");
-            while (data.next()){
-
-                //author.setBookList(GetBooksForAuthor(author.authorID));
-                aISBN.add(new AuthorISBN(data.getInt(1),data.getString(2)));
-            }
-        } catch (Exception e) {
-            System.out.println("ISBN: " + e);
-        }
-        return aISBN;
-    }
-//TODO old code
-//    private List<Book> bookList;
-//    private List<Author> authorList;
-//    public BookDatabaseManager(){}
-//    public static Book getBookByISBN
-//    public List<Book> getBookList() {
-//        return bookList;
-//    }
-//    public List<Author> getAuthorList() {
-//        return authorList;
-//    }
-//    private void loadDatabase(){}
-//    private void loadBooks(){}
-//    private void loadAuthors(){}
-}
