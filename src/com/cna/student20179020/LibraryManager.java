@@ -21,7 +21,7 @@ public class LibraryManager {
         List<AuthorISBN> authorISBN = db.getAllISBN();
 
         for (Author author : authorList) {
-            var bookISBNs = new LinkedList<String>();
+            List<String> bookISBNs = new LinkedList<>();
             for (AuthorISBN ai : authorISBN) {
                 if(ai.authorID == author.authorID){
                     bookISBNs.add(ai.isbn);

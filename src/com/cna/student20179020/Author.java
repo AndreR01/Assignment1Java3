@@ -5,6 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Java 3 CP3566 Spring 2022
+ *
+ * Author class
+ *
+ * @author Andre
+ */
 public class Author {
     public int authorID;
     public String firstName;
@@ -17,14 +24,6 @@ public class Author {
         this.lastName = lastName;
         this.bookList = new LinkedList<>();
     }
-
-//    public Author(int authorID, String firstName, String lastName, List<Book> bookList) {
-//        this.authorID = authorID;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.bookList = new LinkedList<>();
-//    }
-
 
     public int getAuthorID() {
         return authorID;
@@ -56,11 +55,6 @@ public class Author {
 
     public void setBookList(List<Book> bookList) {
         this.bookList = bookList;
-    }
-
-    public static Author buildAuthor(ResultSet set) throws SQLException {
-        var author = new Author(set.getInt(1),set.getString(2), set.getString(3));
-        return author;
     }
 
     public void printAuthorsInfo(PrintStream printStream) {

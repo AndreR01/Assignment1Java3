@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 /**
  * Java 3 CP3566 Spring 2022
+ * <p>
+ * Book application provides a simple console interface to interact with the database
  *
- * Book application
- *
+ * @author Andre
  */
 public class BookApplication {
 
     public static void main(String args[]) {
 
-        var db = new BookDatabaseManager();
-        var libraryManager = new LibraryManager(db);
-
+        Scanner input = new Scanner(System.in);
+        BookDatabaseManager db = new BookDatabaseManager();
+        LibraryManager libraryManager = new LibraryManager(db);
 
         boolean keepUsing = true;
         while (keepUsing) {
-            Scanner input = new Scanner(System.in);
             System.out.println();
             System.out.println("Please choose a number for the associated options:");
             System.out.println("1. Print all the books from the database (showing the authors)");
@@ -42,11 +42,24 @@ public class BookApplication {
                     System.out.println();
                     break;
                 case "3":
-//                    db.AddBook(isbn);
-//                    db.AddAuthorToBook(isbn, authorid);
+                    System.out.println("Please enter the books isbn: ");
+                    String isbn = input.nextLine();
+                    System.out.println("Please enter the title of the book: ");
+                    String title = input.nextLine();
+                    System.out.println("Please enter the edition of the book: ");
+                    int edition = input.nextInt();
+                    System.out.println("Please enter the copyright of the book: ");
+                    String copyright = input.nextLine();
+                    db.AddBook(new Book(isbn,title, edition, copyright));
+                    //db.AddAuthorToBook(isbn, authorid);
                     break;
                 case "4":
-                    db.AddAuthor("Andre", "R");
+                    System.out.println("Please enter the author's first name:");
+                    String firstName = input.nextLine();
+                    System.out.println("Please enter the author's last name");
+                    String lastName = input.nextLine();
+                    Author newAuthor = new Author(0, firstName, lastName);
+                    db.AddAuthor(newAuthor);
                     libraryManager.reloadFromDataSource();
                     break;
                 case "5":

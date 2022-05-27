@@ -29,7 +29,6 @@ public class Book {
 //        this.authorList = new LinkedList<>();
 //    }
 
-
     public String getIsbn() {
         return isbn;
     }
@@ -70,11 +69,6 @@ public class Book {
         this.authorList = authorList;
     }
 
-    public static Book buildBook(ResultSet set) throws SQLException {
-        Book book = new Book(set.getString(1),set.getString(2),set.getInt(3),set.getString(4));
-        return book;
-    }
-
     public void printBookInfo(PrintStream printStream) {
         printStream.printf("\nISBN: %s \t TITLE: %-60s \t EDITION: %d \t COPYRIGHT: %s",
                 getIsbn(), getTitle(), getEditionNumber(), getCopyright());
@@ -82,8 +76,15 @@ public class Book {
             System.out.printf("\tFIRST NAME: %-15s LAST NAME: %-20s", k.getFirstName(),k.getLastName());
             });
     }
+}
+
+// TODO do this inn the DBM have no sql
+//    public static Book buildBook(ResultSet set) throws SQLException {
+//        Book book = new Book(set.getString(1),set.getString(2),set.getInt(3),set.getString(4));
+//        return book;
+//    }
+
+
 //        for (Author a : getAuthorList()) {
 //            printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
 //        }
-
-}

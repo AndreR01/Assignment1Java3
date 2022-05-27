@@ -1,9 +1,6 @@
 package com.cna.student20179020;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,23 +12,10 @@ public class BookDatabaseManager {
     private static final String USER = "root";
     private static final String PASS = "A@123456";
 
-//TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
-    public void AddAuthor(String firstName, String lastName) {
-        try {
-            ResultSet resp = getData("insert into authors (`firstName`,`lastName`) values (`" + firstName + "`, `" + lastName + "`);");
-        } catch (Exception e) {
-            System.out.println("AddAuthor: " + e);
-        }
-    }
-
-//TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
-//    public void AddBook(String isbn, String title, int edition, String copyright) {
-//    }
-
 
     private ResultSet getData(String query) throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
-        Connection conn = DriverManager.getConnection(DATABASE_URL, USER, PASS);
+        Connection conn = getConnection();
         ResultSet rs = conn.prepareStatement(query).executeQuery();
         conn.close();
         return rs;
@@ -42,9 +26,7 @@ public class BookDatabaseManager {
         try {
             ResultSet data = getData("Select * from titles");
             while (data.next()) {
-                Book book = Book.buildBook(data);
-                //book.setAuthorList(GetAuthorsForBook(book.isbn));
-                books.add(book);
+                books.add(new Book(data.getString(1), data.getString(2), data.getInt(3), data.getString(4)));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -52,14 +34,43 @@ public class BookDatabaseManager {
         return books;
     }
 
+    //TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
+    public void AddAuthor(Author author) {
+        try (
+                Connection conn = getConnection();
+        ) {
+            String sqlQuery = "insert into authors values (default,?,?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, author.getFirstName());
+            preparedStatement.setString(2, author.getLastName());
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (Exception e) {
+            System.out.println("AddAuthor: " + e);
+        }
+    }
+
+    public void AddBook(Book book) {
+        try (
+                Connection conn = getConnection();
+        ) {
+            String sqlQuery = "insert into titles values (?,?,?,?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, book.getIsbn());
+            preparedStatement.setString(2, book.getTitle());
+            preparedStatement.setInt(3, book.getEditionNumber());
+            preparedStatement.setString(4, book.getCopyright());
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (Exception e) {
+            System.out.println("AddAuthor: " + e);
+        }
+    }
+
     public List<Author> getAllAuthors() {
         List<Author> authors = new LinkedList<Author>();
         try {
             ResultSet data = getData("Select * from authors");
             while (data.next()) {
-                Author author = Author.buildAuthor(data);
-                //author.setBookList(GetBooksForAuthor(author.authorID));
-                authors.add(author);
+                authors.add(new Author(data.getInt(1), data.getString(2), data.getString(3)));
             }
         } catch (Exception e) {
             System.out.println("Author: " + e);
@@ -72,8 +83,6 @@ public class BookDatabaseManager {
         try {
             ResultSet data = getData("Select * from authorisbn");
             while (data.next()) {
-
-                //author.setBookList(GetBooksForAuthor(author.authorID));
                 authorISBN.add(new AuthorISBN(data.getInt(1), data.getString(2)));
             }
         } catch (Exception e) {
@@ -81,8 +90,16 @@ public class BookDatabaseManager {
         }
         return authorISBN;
     }
+
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DATABASE_URL, USER, PASS);
+    }
 }
 
+//Author author = Author.buildAuthor(data);
+//TODO insert sql statements here in place of Author.buildAuthor
+// repeat for getAllBooks and getAllISBN
+//author.setBookList(GetBooksForAuthor(author.authorID));
 
 //TODO old code
 //    private List<Book> bookList;
