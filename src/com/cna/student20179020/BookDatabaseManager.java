@@ -21,6 +21,11 @@ public class BookDatabaseManager {
         return rs;
     }
 
+    /**
+     * Retrieves all of the books from the database into a linkedlist
+     * NOTE: this method is dangerous if the database is large. For this example is isn't.
+     * @return books
+     */
     public List<Book> getAllBooks() {
         List<Book> books = new LinkedList<Book>();
         try {
@@ -34,6 +39,11 @@ public class BookDatabaseManager {
         return books;
     }
 
+    /**
+     * Adds an author into the database.
+     *
+     * @param author
+     */
     //TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
     public void AddAuthor(Author author) {
         try (
@@ -49,6 +59,11 @@ public class BookDatabaseManager {
         }
     }
 
+    /**
+     * Add a book to the database for an existing author.
+     *
+     * @param book
+     */
     public void AddBook(Book book) {
         try (
                 Connection conn = getConnection();
@@ -59,12 +74,17 @@ public class BookDatabaseManager {
             preparedStatement.setString(2, book.getTitle());
             preparedStatement.setInt(3, book.getEditionNumber());
             preparedStatement.setString(4, book.getCopyright());
-            preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
         } catch (Exception e) {
             System.out.println("AddAuthor: " + e);
         }
     }
 
+    /**
+     * Creates a list of authors from a result set on the authors table.
+     *
+     * @return authors
+     */
     public List<Author> getAllAuthors() {
         List<Author> authors = new LinkedList<Author>();
         try {
@@ -78,9 +98,15 @@ public class BookDatabaseManager {
         return authors;
     }
 
+    /**
+     * Creates a list of authorISBN's from a result set on the authorISBN table.
+     *
+     * @return authorISBN
+     */
     public List<AuthorISBN> getAllISBN() {
         List<AuthorISBN> authorISBN = new LinkedList<AuthorISBN>();
         try {
+            //TODO This was "from authors"
             ResultSet data = getData("Select * from authorisbn");
             while (data.next()) {
                 authorISBN.add(new AuthorISBN(data.getInt(1), data.getString(2)));
@@ -91,6 +117,12 @@ public class BookDatabaseManager {
         return authorISBN;
     }
 
+    /**
+     * Get a connection to the Books database
+     *
+     * @return DriverManager.getConnection(DATABASE_URL, USER, PASS)
+     * @throws SQLException
+     */
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DATABASE_URL, USER, PASS);
     }

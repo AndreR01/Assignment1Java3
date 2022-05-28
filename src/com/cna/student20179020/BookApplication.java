@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 /**
  * Java 3 CP3566 Spring 2022
- * <p>
  * Book application provides a simple console interface to interact with the database
  *
  * @author Andre
