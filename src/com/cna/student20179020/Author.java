@@ -25,6 +25,13 @@ public class Author {
         this.bookList = new LinkedList<>();
     }
 
+//    public Author(int id, String firstName, String lastName, List<Book> bookList) {
+//        this.authorIDid = id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.bookList = bookList;
+//    }
+
     public int getAuthorID() {
         return authorID;
     }

@@ -49,6 +49,7 @@ public class BookApplication {
                     int edition = input.nextInt();
                     System.out.println("Please enter the copyright of the book: ");
                     String copyright = input.nextLine();
+                    //TODO copyright isn't making it into the constructor
                     databaseManager.AddBook(new Book(isbn,title, edition, copyright));
                     //databaseManager.AddAuthorToBook(isbn, authorid);
                     break;

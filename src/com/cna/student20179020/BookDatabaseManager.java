@@ -4,6 +4,12 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Java 3 CP3566 Spring 2022
+ * BookDatabaseManager manages
+ *
+ * @author Andre
+ */
 public class BookDatabaseManager {
     // JDBC driver name and database URL
     private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
