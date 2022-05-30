@@ -19,6 +19,13 @@ public class BookDatabaseManager {
     private static final String PASS = "A@123456";
 
 
+    /**
+     * Establish connection to the database.
+     * @param query
+     * @return rs
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     private ResultSet getData(String query) throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
         Connection conn = getConnection();
@@ -48,17 +55,17 @@ public class BookDatabaseManager {
     /**
      * Adds an author into the database.
      *
-     * @param author
+     * @param firstName
+     * @param lastName
      */
-    //TODO USE A PREPARED STATEMENT TO HANDLE THE NEW BOOK AND NEW AUTHOR CREATION
-    public void AddAuthor(Author author) {
+    public void AddAuthor(String firstName, String lastName) {
         try (
                 Connection conn = getConnection();
         ) {
             String sqlQuery = "insert into authors values (?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, author.getFirstName());
-            preparedStatement.setString(2, author.getLastName());
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
             preparedStatement.executeQuery();
         } catch (Exception e) {
             System.out.println("AddAuthor: " + e);
@@ -70,17 +77,26 @@ public class BookDatabaseManager {
      *
      * @param book
      */
-    public void AddBook(Book book) {
+    public void AddBook(Book book, List<Integer> authorIDS) {
         try (
                 Connection conn = getConnection();
         ) {
-            String sqlQuery = "insert into titles values (?,?,?,?)";
+            String sqlQuery = "insert into titles (isbn, title, editionNumber, copyright) values (?,?,?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
             preparedStatement.setString(1, book.getIsbn());
             preparedStatement.setString(2, book.getTitle());
             preparedStatement.setInt(3, book.getEditionNumber());
             preparedStatement.setString(4, book.getCopyright());
             ResultSet resultSet = preparedStatement.executeQuery();
+            String insertAuthorISBNQuery = "INSERT INTO authorISBN (authorID,isbn) VALUES (?,?)";
+            PreparedStatement preparedStatementAuthorISBN = conn.prepareStatement((insertAuthorISBNQuery));
+            for (int authorID:
+                 authorIDS) {
+            preparedStatementAuthorISBN.setInt(1, authorID);
+            preparedStatementAuthorISBN.setString(2, book.getIsbn());
+            preparedStatementAuthorISBN.addBatch();
+            }
+            int[] resultSetAuthorISBN = preparedStatementAuthorISBN.executeBatch();
         } catch (Exception e) {
             System.out.println("AddAuthor: " + e);
         }

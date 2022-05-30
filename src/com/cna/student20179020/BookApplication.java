@@ -1,5 +1,6 @@
 package com.cna.student20179020;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 
@@ -13,6 +14,7 @@ public class BookApplication {
 
     /**
      * Main method to prompt user input from menu options.
+     *
      * @param args
      */
     public static void main(String args[]) {
@@ -50,30 +52,30 @@ public class BookApplication {
                     System.out.println("Please enter the title of the book: ");
                     String title = input.nextLine();
                     System.out.println("Please enter the edition of the book: ");
-                    int edition = input.nextInt();
+                    int edition = Integer.parseInt(input.nextLine());
                     System.out.println("Please enter the copyright of the book: ");
                     String copyright = input.nextLine();
-                    //TODO copyright isn't making it into the constructor
-                    databaseManager.AddBook(new Book(isbn,title, edition, copyright));
-                    //databaseManager.AddAuthorToBook(isbn, authorid);
+                    System.out.println("Insert the author ID for the author you would like to add to this book: ");
+//                    LinkedList<Integer> authorIDS = getAuthorsIDSFromUser();
+//                    libraryManager.addBook(new Book(isbn, title, edition, copyright), authorIDS);
                     break;
                 case "4":
                     System.out.println("Please enter the author's first name:");
                     String firstName = input.nextLine();
                     System.out.println("Please enter the author's last name");
                     String lastName = input.nextLine();
-                    //TODO is it ok to pass 0 to the constructor. authorID is autoincrement
-                    Author newAuthor = new Author(0, firstName, lastName);
-                    databaseManager.AddAuthor(newAuthor);
-                    libraryManager.reloadFromDataSource();
+                    libraryManager.addAuthor(firstName, lastName);
                     break;
                 case "5":
                     System.out.println("Thank you for using the database. Goodbye");
                     keepUsing = false;
                     break;
-
-
             }
         }
     }
+
+//    private static LinkedList<Integer> getAuthorsIDSFromUser() {
+//        var authorIDS = new LinkedList<Integer>();
+//        return authorIDS;
+//    }
 }
