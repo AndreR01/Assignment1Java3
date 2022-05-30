@@ -28,8 +28,8 @@ public class BookDatabaseManager {
     }
 
     /**
-     * Retrieves all of the books from the database into a linkedlist
-     * NOTE: this method is dangerous if the database is large. For this example is isn't.
+     * Creates a linked list of books.
+     * NOTE: this method is dangerous if the database is large. For this example it isn't.
      * @return books
      */
     public List<Book> getAllBooks() {
@@ -124,7 +124,7 @@ public class BookDatabaseManager {
     }
 
     /**
-     * Get a connection to the Books database
+     * Get a connection to the Books database.
      *
      * @return DriverManager.getConnection(DATABASE_URL, USER, PASS)
      * @throws SQLException
