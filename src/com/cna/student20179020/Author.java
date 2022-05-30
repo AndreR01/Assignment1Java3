@@ -29,21 +29,6 @@ public class Author {
         this.lastName = lastName;
         this.bookList = new LinkedList<>();
     }
-//TODO correct the javadocs for second constructor
-//    /**
-//     * Second constructor for an author object
-//     *
-//     * @param id
-//     * @param firstName
-//     * @param lastName
-//     * @param bookList
-//     */
-//    public Author(int id, String firstName, String lastName, List<Book> bookList) {
-//        this.authorIDid = id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.bookList = bookList;
-//    }
 
     /**
      * Get the authorID.

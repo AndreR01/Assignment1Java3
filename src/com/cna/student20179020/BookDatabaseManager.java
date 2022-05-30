@@ -55,7 +55,7 @@ public class BookDatabaseManager {
         try (
                 Connection conn = getConnection();
         ) {
-            String sqlQuery = "insert into authors values (default,?,?)";
+            String sqlQuery = "insert into authors values (?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
             preparedStatement.setString(1, author.getFirstName());
             preparedStatement.setString(2, author.getLastName());
@@ -133,55 +133,3 @@ public class BookDatabaseManager {
         return DriverManager.getConnection(DATABASE_URL, USER, PASS);
     }
 }
-
-//Author author = Author.buildAuthor(data);
-//TODO insert sql statements here in place of Author.buildAuthor
-// repeat for getAllBooks and getAllISBN
-//author.setBookList(GetBooksForAuthor(author.authorID));
-
-//TODO old code
-//    private List<Book> bookList;
-//    private List<Author> authorList;
-//    public BookDatabaseManager(){}
-//    public static Book getBookByISBN
-//    public List<Book> getBookList() {
-//        return bookList;
-//    }
-//    public List<Author> getAuthorList() {
-//        return authorList;
-//    }
-//    private void loadDatabase(){}
-//    private void loadBooks(){}
-//    private void loadAuthors(){}
-//
-
-//    public List<Author> GetAuthorsForBook(String isbn){
-//        var query = "SELECT authors.authorID, authors.firstName, authors.lastName from authorisbn JOIN authors on authorisbn.authorID = authors.authorID WHERE authorisbn.isbn = "+ isbn;
-//        List<Author> authors = new LinkedList<Author>();
-//        try {
-//            ResultSet data = getData(query);
-//
-//            while (data.next()){
-//                authors.add(Author.buildAuthor(data));
-//            }
-//        }  catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return authors;
-//    }
-//
-
-
-//    public List<Book> GetBooksForAuthor(int authorId){
-//        String query = "SELECT titles.isbn, titles.title, titles.editionNumber, titles.copyright FROM authorisbn JOIN titles ON authorisbn.isbn = titles.isbn WHERE authorisbn.authorID = " + authorId;
-//        List<Book> books = new LinkedList<Book>();
-//        try {
-//            ResultSet data = getData(query);
-//            while (data.next()){
-//                books.add(Book.buildBook(data));
-//            }
-//        }  catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return books;
-//    }

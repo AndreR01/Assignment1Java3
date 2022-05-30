@@ -33,22 +33,6 @@ public class Book {
         this.copyright = copyright;
         this.authorList = new LinkedList<>();
     }
-//TODO correct the javadocs for second constructor
-//    /**
-//     * Second constructor for book object.
-//     * @param isbn
-//     * @param title
-//     * @param editionNumber
-//     * @param copyright
-//     * @param authorList
-//     */
-//   public Book(String isbn, String title, int editionNumber, String copyright, List<Author> authorList) {
-//        this.isbn = isbn;
-//        this.title = title;
-//        this.editionNumber = editionNumber;
-//        this.copyright = copyright;
-//        this.authorList = new LinkedList<>();
-//    }
 
     /**
      * Get the book's isbn.
@@ -142,14 +126,3 @@ public class Book {
             });
     }
 }
-
-// TODO do this inn the DBM have no sql
-//    public static Book buildBook(ResultSet set) throws SQLException {
-//        Book book = new Book(set.getString(1),set.getString(2),set.getInt(3),set.getString(4));
-//        return book;
-//    }
-
-
-//        for (Author a : getAuthorList()) {
-//            printStream.printf("\t%s %s", a.getFirstName(),a.getLastName());
-//        }
