@@ -105,4 +105,13 @@ public class Author {
             System.out.printf("\tISBN: %-12s TITLE: %-60s EDITION: %-5s", k.getIsbn(),k.getTitle(),k.getEditionNumber());
         });
     }
+
+    /**
+     * Prints the author's first and last name.
+     * @param printStream
+     */
+    public void printAuthorIDAndNameOnly(PrintStream printStream){
+        printStream.printf("\nAUTHOR ID: %d \t\t FIRST NAME: %-10s \t\t LAST NAME: %-10s",
+                this.getAuthorID(), this.getFirstName(), this.getLastName());
+    }
 }

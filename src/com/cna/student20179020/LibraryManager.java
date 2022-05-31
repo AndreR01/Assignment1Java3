@@ -1,5 +1,6 @@
 package com.cna.student20179020;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -80,9 +81,18 @@ public class LibraryManager {
      * @param firstName
      * @param lastName
      */
-    public void addAuthor(String firstName, String lastName){
+    public Author addAuthor(String firstName, String lastName){
         databaseManager.AddAuthor(firstName, lastName);
         reloadFromDataSource();
+        Iterator<Author> iterator = authorList.iterator();
+        while (iterator.hasNext()) {
+            Author author = iterator.next();
+            if (author.getFirstName().equals(firstName) && author.getLastName().equals(lastName)) {
+                return author;
+            }
+        }
+        Author author = new Author(0, "J", "Doe");
+        return author;
     }
 }
 

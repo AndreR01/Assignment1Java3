@@ -62,7 +62,7 @@ public class BookDatabaseManager {
         try (
                 Connection conn = getConnection();
         ) {
-            String sqlQuery = "insert into authors values (?,?)";
+            String sqlQuery = "insert into authors (firstName, lastName) values (?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery);
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
